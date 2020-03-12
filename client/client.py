@@ -1,7 +1,5 @@
-from paramiko import SSHClient
-from scp import SCPClient
 import tarfile
-import os
+import os, time
 
 folder = 'SmartMirror'
 
@@ -9,12 +7,6 @@ path = '~/Desktop/'
 
 host = '192.168.0.199'
 username = 'pi'
-password = ''
-
-ssh = SSHClient()
-ssh.load_system_host_keys()
-ssh.connect(host, username=username, password=password)
-scp = SCPClient(ssh.get_transport())
 
 # Compress folder
 
@@ -36,10 +28,16 @@ print('Finished compressing.')
 
 # Send folder
 
-print('SCP starting...')
-scp.put('tmp/{}.tar.gz'.format(folder), path)
-print('File sent.')
-ssh.close()
+start = time.time()
+
+print('Transfer starting...')
+os.system('scp {file} {user}@{host}:{path}'.format(
+    file=os.path.join('tmp', '{}.tar.gz'.format(folder)),
+    user=username,
+    host=host,
+    path=path
+))
+print('File sent in {} seconds.'.format(time.time() - start))
 
 # Clean up
 
