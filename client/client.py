@@ -1,5 +1,4 @@
-import tarfile
-import os, time
+import tarfile, requests, os, time
 
 folder = 'SmartMirror'
 
@@ -38,6 +37,10 @@ os.system('scp {file} {user}@{host}:{path}'.format(
     path=path
 ))
 print('File sent in {} seconds.'.format(time.time() - start))
+
+# Notify server to unpack file
+
+requests.post('http://{host}:56597/'.format(), {'folder': folder})
 
 # Clean up
 
