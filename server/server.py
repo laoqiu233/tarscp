@@ -19,16 +19,16 @@ def index():
                 for file in files:
                     os.remove(os.path.join(root, file))
                 for dir in dirs:
-                    os.remove(os.path.join(root, dir))
+                    os.rmdir(os.path.join(root, dir))
 
     # Extract
     with tarfile.open('{}.tar.gz'.format(folder), 'r:gz') as file:
         file.extractall()
 
-    return 'ok', 200
-
     # Clean up
     os.remove('{}.tar.gz'.format(folder))
+
+    return 'ok', 200
 
 if __name__ == '__main__':
     print('***WARNING*** This script will delete the existing folder when it gets a new file.')
