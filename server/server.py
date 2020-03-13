@@ -32,4 +32,4 @@ def index():
 
 if __name__ == '__main__':
     print('***WARNING*** This script will delete the existing folder when it gets a new file.')
-    app.run(port=56597)
+    app.run(host='0.0.0.0', port=56597)
