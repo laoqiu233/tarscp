@@ -40,7 +40,7 @@ print('File sent in {} seconds.'.format(time.time() - start))
 
 # Notify server to unpack file
 
-requests.post('http://{host}:56597/'.format(), {'folder': folder})
+requests.post('http://{host}:56597/'.format(host=host), {'folder': folder})
 
 # Clean up
 
